@@ -17,7 +17,7 @@ nrot = 999 ## Increase for improved accuracy of the Enrichment p-values
 #####################################################################
 #### TCGA Data ######################################################
 #####################################################################
-supporting.document <- "41598_2018_21937_MOESM2_ESM.xlsx" # The supplementary xlsx File MOESM2_ESM.xlsx
+supporting.document <- "XXXX.xlsx" # Replace by filename of Supplementary table 5
 data <- readWorkbook(supporting.document,sheet=5,startRow = 4,rowNames=TRUE)
 samples <- readWorkbook(supporting.document,sheet=3,startRow=3,rowNames=TRUE)
 immunegenes <- readWorkbook(supporting.document,sheet=6,startRow=3,rowNames=FALSE)
