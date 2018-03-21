@@ -1,6 +1,6 @@
-# Code used in "The immune contexture of hepatocellular carcinoma predicts clinical outcome" - Förster et al. 2018
+# Code used in "The immune contexture of hepatocellular carcinoma predicts clinical outcome" - Foerster et al. Scientific Reports 2018
 This GitHub repository contains the code to conduct the immune cell marker gene enrichment analysis and the inference of gene signatures shown in "The immune contexture of hepatocellular carcinoma predicts clinical outcome".
-"script.R" contains examples how to use the code included in "functions.R". Expression data ("41598_2018_21937_MOESM2_ESM.xlsx") can be found in the supplementary electronic materials of the publication .
+"script.R" contains examples how to use the code included in "functions.R". Expression data shown in Supplementary Table 5 can be found in the supplementary electronic materials of the publication.
 
 ## Immune cell marker gene enrichment
 Immune cell marker gene enrichment is computed based on immune cell type-specific marker genes ([Bindea et al. 2018](http://www.cell.com/immunity/fulltext/S1074-7613(13)00437-8)) and gene set enrichment analyses using rotation tests [ROAST](https://academic.oup.com/bioinformatics/article/26/17/2176/200022), implemented in [limma](https://www.bioconductor.org/packages/release/bioc/html/limma.html).
