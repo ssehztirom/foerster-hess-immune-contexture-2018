@@ -3,7 +3,7 @@ This GitHub repository contains the code to conduct the immune cell marker gene 
 "script.R" contains examples how to use the code included in "functions.R"
 
 ## Immune cell marker gene enrichment
-Immune cell marker gene enrichment is computed based on immune cell type-specific marker genes ([Bindea et al. 2018](http://www.cell.com/immunity/fulltext/S1074-7613(13)00437-8) and gene set enrichment analyses using rotation tests [ROAST](https://academic.oup.com/bioinformatics/article/26/17/2176/200022), implemented in [limma](https://www.bioconductor.org/packages/release/bioc/html/limma.html).
+Immune cell marker gene enrichment is computed based on immune cell type-specific marker genes ([Bindea et al. 2018](http://www.cell.com/immunity/fulltext/S1074-7613(13)00437-8)) and gene set enrichment analyses using rotation tests [ROAST](https://academic.oup.com/bioinformatics/article/26/17/2176/200022), implemented in [limma](https://www.bioconductor.org/packages/release/bioc/html/limma.html).
 
 
 ## Development of signatures to predict survival based on gene expression
