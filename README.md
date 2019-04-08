@@ -8,3 +8,5 @@ Immune cell marker gene enrichment is computed based on immune cell type-specifi
 
 ## Development of signatures to predict survival based on gene expression
 Here a score is computed for each sample (individual) based on the expression of selected genes and their association with survival. The higher the score, the longer is the expected survival. Gene-wise association with survival is detected using univariate proportional hazards models.
+
+Test
