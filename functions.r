@@ -59,11 +59,16 @@ score.universal <- function(Genes,mat,thres="median",direction="both",addone=TRU
 
 
 
-permcelltest <- function(unip,n)
+permcelltest <- function(unip,n,externaluniverse=NULL)
 {
     ## Computes the probability of an average z-score of a gene set. 
     ## "unip" is a named list containing z-scores from e.g. a cox model. Each list entry is a named vector containing the z-scores of a gene set. Gene sets have to be mutually exclusive. "n" determines the number of conducted simulations to retrieve the empirical null distribution of observing a particular average z-score per gene-set. In each simulation (S_i), for each gene set, a random number of genes (z-scores) of equal size as the gene set are sampled from all available z-scores (across all gene sets) and average z-scores are computed per gene-set. The number of simulated average absolute z-scores, exceeding the absolute value of the empirical averaged z-score per gene-set is the p-value for the respective z-score.
     gene.universe <- unlist(unip)
+    if (!is.null(externaluniverse))
+    {
+        gene.universe = externaluniverse
+    }
+    
     unip.length <- sapply(unip,length)
     nrep <- n
     .bg <- lapply(unip.length, function(x) sapply(1:nrep,function(y) mean(sample(gene.universe,x))))
@@ -74,7 +79,7 @@ permcelltest <- function(unip,n)
     return (.obs.p)
 }
 
-plotzscoreenrich <- function(unip,enrichp,fnamesuffix)
+plotzscoreenrich <- function(unip,enrichp)
 {
     ## Plots the distribution of z-scores per gene-set ("unip") and the p-values from "permcelltest" ("enrichp").
     xx <- unip
@@ -83,15 +88,12 @@ plotzscoreenrich <- function(unip,enrichp,fnamesuffix)
     xx.vp <- p.adjust(xx.v,method="bonferroni")
     xx.vp <- sapply(xx.vp, function(x) ifelse(x<0.05,yes="*", no=""))
     xx.v <- sapply(xx.v, function(x) sprintf("%.4f",x))
-    pdf(sprintf('%s.pdf',fnamesuffix))
+    # pdf(sprintf('%s.pdf',fnamesuffix))
     .min <- min(unlist(xx))
-    .max <- max(unlist(xx))
-           
-    plot(1000,-1000,xlim=c(.min-4,.max+4),ylim=c(1,length(xx)),ylab='Immune Cell Type',xlab= ' - Beta/SE(Beta),  Cox proportional hazards model ',axes=FALSE)
+    .max <- max(unlist(xx))           
+    plot(1000,-1000,xlim=c(.min-4,.max+4),ylim=c(0.5,length(xx)+0.5),ylab='Immune Cell Type',xlab= ' - Beta/SE(Beta),  Cox proportional hazards model ',axes=FALSE)
     axis(1)
-    box <- boxplot(xx,horizontal = TRUE,add=TRUE,axes=FALSE,border='black',outline=FALSE)
-    
-    abline(v=0)
+    box <- boxplot(xx,horizontal = TRUE,add=TRUE,axes=FALSE,border='black',outline=FALSE)#,boxwex=0.7)
     parc <- par()
     .min <- parc$usr[1]
     .max <- parc$usr[2]
@@ -113,8 +115,10 @@ plotzscoreenrich <- function(unip,enrichp,fnamesuffix)
     }
     .lab <- apply(cbind(box$n,xx.v[box$names],xx.vp[box$names]),1,paste,collapse=" | ")
     text(y=(1:length(xx))+0.25,x=.number.pos.,labels=.lab,pos=.digit.side,cex=0.7,col='grey')
+    par(xpd=FALSE)
+    abline(v=0)
 
-    dev.off()
+    # dev.off()
 }
 
 
