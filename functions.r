@@ -79,20 +79,21 @@ permcelltest <- function(unip,n,externaluniverse=NULL)
     return (.obs.p)
 }
 
-plotzscoreenrich <- function(unip,enrichp)
+plotzscoreenrich <- function(unip,enrichp,fdrthres=0.05)
 {
     ## Plots the distribution of z-scores per gene-set ("unip") and the p-values from "permcelltest" ("enrichp").
     xx <- unip
     xx <- lapply(xx,function(x) x * -1)
     xx.v <- enrichp[names(unip)]
     xx.vp <- p.adjust(xx.v,method="bonferroni")
-    xx.vp <- sapply(xx.vp, function(x) ifelse(x<0.05,yes="*", no=""))
+    xx.vp <- sapply(xx.vp, function(x) ifelse(x<fdrthres,yes="*", no=""))
     xx.v <- sapply(xx.v, function(x) sprintf("%.4f",x))
     # pdf(sprintf('%s.pdf',fnamesuffix))
     .min <- min(unlist(xx))
     .max <- max(unlist(xx))           
-    plot(1000,-1000,xlim=c(.min-4,.max+4),ylim=c(0.5,length(xx)+0.5),ylab='Immune Cell Type',xlab= ' - Beta/SE(Beta),  Cox proportional hazards model ',axes=FALSE)
+    plot(NA,xlim=c(.min,.max),ylim=c(0.5,length(xx)+0.5),ylab='',xlab= ' - Beta/SE(Beta),  Cox proportional hazards model ',axes=FALSE)
     axis(1)
+    mtext('Immune Cell Type',2,3)
     box <- boxplot(xx,horizontal = TRUE,add=TRUE,axes=FALSE,border='black',outline=FALSE)#,boxwex=0.7)
     parc <- par()
     .min <- parc$usr[1]
